@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional portfolio of a BICT undergraduate at the University of Vavuniya.">
+  <title>[Your Name] | Professional Portfolio</title>
+  <script>
+    (function () {
+      var storageKey = "portfolio-theme";
+      var saved = localStorage.getItem(storageKey);
+      var theme =
+        saved ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Site Header & Navigation -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <a class="navbar__brand" href="#home">[Your Name]</a>
+
+      <div class="navbar__end">
+        <ul class="navbar__menu" id="nav-menu">
+          <li><a class="navbar__link" href="#home">Home</a></li>
+          <li><a class="navbar__link" href="#about">About Me</a></li>
+          <li><a class="navbar__link" href="#education">Education</a></li>
+          <li><a class="navbar__link" href="#skills">Skills</a></li>
+          <li><a class="navbar__link" href="#projects">Projects</a></li>
+          <li><a class="navbar__link" href="#experience">Experience &amp; Activities</a></li>
+          <li><a class="navbar__link" href="#cv">CV</a></li>
+          <li><a class="navbar__link" href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="navbar__controls">
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            title="Switch to dark mode"
+          >
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <button
+            class="navbar__toggle"
+            id="nav-toggle"
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="navbar__toggle-bar"></span>
+            <span class="navbar__toggle-bar"></span>
+            <span class="navbar__toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Home / Hero -->
+    <section class="section section--hero" id="home" aria-labelledby="hero-heading">
+      <div class="container hero">
+        <div class="hero__content">
+          <p class="hero__greeting">Hello, I'm</p>
+          <h1 class="hero__title" id="hero-heading">[Your Full Name]</h1>
+          <p class="hero__subtitle">[Your Professional Title / Role — e.g., BICT Undergraduate &amp; Aspiring Software Engineer]</p>
+          <p class="hero__intro">
+            [Brief introduction placeholder — write 1–2 sentences about who you are and what you are passionate about.]
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">View My Projects</a>
+            <a class="btn btn--outline" href="#contact">Get In Touch</a>
+          </div>
+        </div>
+        <div class="hero__image-wrapper">
+          <!-- Replace src with your profile photo: images/profile.jpg -->
+          <div class="hero__image-placeholder" role="img" aria-label="Profile photo placeholder">
+            <span>[Profile Photo]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me -->
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <h2 class="section__title" id="about-heading">About Me</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="about">
+          <p class="about__text">
+            [About me placeholder — describe your background, interests in technology, career goals, and what motivates you as a software engineering student.]
+          </p>
+          <ul class="about__highlights">
+            <li><strong>Location:</strong> [City, Sri Lanka]</li>
+            <li><strong>University:</strong> University of Vavuniya</li>
+            <li><strong>Programme:</strong> BICT — Year 2</li>
+            <li><strong>Interests:</strong> [e.g., Web Development, System Design, etc.]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section section--alt" id="education" aria-labelledby="education-heading">
+      <div class="container">
+        <h2 class="section__title" id="education-heading">Education</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="timeline">
+
+          <article class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__content card">
+              <time class="timeline__date" datetime="[YYYY]-[MM]">[Start Year] – Present</time>
+              <h3 class="timeline__title">Bachelor of Information and Communication Technology (BICT)</h3>
+              <p class="timeline__org">University of Vavuniya</p>
+              <p class="timeline__desc">[Placeholder — mention relevant coursework, GPA if desired, academic focus areas.]</p>
+            </div>
+          </article>
+
+          <article class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__content card">
+              <time class="timeline__date" datetime="[YYYY]-[MM]">[Start Year] – [End Year]</time>
+              <h3 class="timeline__title">[Previous Qualification — e.g., G.C.E. Advanced Level]</h3>
+              <p class="timeline__org">[School / Institution Name]</p>
+              <p class="timeline__desc">[Placeholder — subjects, results, or achievements.]</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills" aria-labelledby="skills-heading">
+      <div class="container">
+        <h2 class="section__title" id="skills-heading">Skills</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="skills-grid">
+
+          <div class="skills-group card">
+            <h3 class="skills-group__title">Programming Languages</h3>
+            <ul class="skills-list">
+              <li class="skill-tag">[Language 1]</li>
+              <li class="skill-tag">[Language 2]</li>
+              <li class="skill-tag">[Language 3]</li>
+              <li class="skill-tag">[Add more]</li>
+            </ul>
+          </div>
+
+          <div class="skills-group card">
+            <h3 class="skills-group__title">Web Technologies</h3>
+            <ul class="skills-list">
+              <li class="skill-tag">HTML5</li>
+              <li class="skill-tag">CSS3</li>
+              <li class="skill-tag">JavaScript</li>
+              <li class="skill-tag">[Framework / Tool]</li>
+            </ul>
+          </div>
+
+          <div class="skills-group card">
+            <h3 class="skills-group__title">Tools &amp; Platforms</h3>
+            <ul class="skills-list">
+              <li class="skill-tag">[Git / GitHub]</li>
+              <li class="skill-tag">[IDE — e.g., VS Code]</li>
+              <li class="skill-tag">[Database — e.g., MySQL]</li>
+              <li class="skill-tag">[Add more]</li>
+            </ul>
+          </div>
+
+          <div class="skills-group card">
+            <h3 class="skills-group__title">Soft Skills</h3>
+            <ul class="skills-list">
+              <li class="skill-tag">[Teamwork]</li>
+              <li class="skill-tag">[Problem Solving]</li>
+              <li class="skill-tag">[Communication]</li>
+              <li class="skill-tag">[Add more]</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section section--alt" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <h2 class="section__title" id="projects-heading">Projects</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="projects-grid">
+
+          <article class="project-card card">
+            <div class="project-card__image-placeholder" aria-hidden="true">[Project Image]</div>
+            <div class="project-card__body">
+              <h3 class="project-card__title">[Project Title 1]</h3>
+              <p class="project-card__desc">[Brief project description placeholder — what it does, the problem it solves, and your role.]</p>
+              <ul class="project-card__tags">
+                <li class="skill-tag skill-tag--small">[Tech 1]</li>
+                <li class="skill-tag skill-tag--small">[Tech 2]</li>
+              </ul>
+              <div class="project-card__links">
+                <a class="project-card__link" href="#" aria-label="View [Project Title 1] live demo">Live Demo</a>
+                <a class="project-card__link" href="#" aria-label="View [Project Title 1] source code">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card card">
+            <div class="project-card__image-placeholder" aria-hidden="true">[Project Image]</div>
+            <div class="project-card__body">
+              <h3 class="project-card__title">[Project Title 2]</h3>
+              <p class="project-card__desc">[Brief project description placeholder.]</p>
+              <ul class="project-card__tags">
+                <li class="skill-tag skill-tag--small">[Tech 1]</li>
+                <li class="skill-tag skill-tag--small">[Tech 2]</li>
+              </ul>
+              <div class="project-card__links">
+                <a class="project-card__link" href="#" aria-label="View [Project Title 2] live demo">Live Demo</a>
+                <a class="project-card__link" href="#" aria-label="View [Project Title 2] source code">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card card">
+            <div class="project-card__image-placeholder" aria-hidden="true">[Project Image]</div>
+            <div class="project-card__body">
+              <h3 class="project-card__title">[Project Title 3]</h3>
+              <p class="project-card__desc">[Brief project description placeholder.]</p>
+              <ul class="project-card__tags">
+                <li class="skill-tag skill-tag--small">[Tech 1]</li>
+                <li class="skill-tag skill-tag--small">[Tech 2]</li>
+              </ul>
+              <div class="project-card__links">
+                <a class="project-card__link" href="#" aria-label="View [Project Title 3] live demo">Live Demo</a>
+                <a class="project-card__link" href="#" aria-label="View [Project Title 3] source code">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Activities -->
+    <section class="section" id="experience" aria-labelledby="experience-heading">
+      <div class="container">
+        <h2 class="section__title" id="experience-heading">Experience &amp; Activities</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="timeline">
+
+          <article class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__content card">
+              <time class="timeline__date" datetime="[YYYY]-[MM]">[Month Year] – [Month Year / Present]</time>
+              <h3 class="timeline__title">[Role / Activity Title]</h3>
+              <p class="timeline__org">[Organisation / Event Name]</p>
+              <p class="timeline__desc">[Placeholder — describe responsibilities, contributions, or outcomes.]</p>
+            </div>
+          </article>
+
+          <article class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__content card">
+              <time class="timeline__date" datetime="[YYYY]-[MM]">[Month Year] – [Month Year]</time>
+              <h3 class="timeline__title">[Role / Activity Title]</h3>
+              <p class="timeline__org">[Organisation / Event Name]</p>
+              <p class="timeline__desc">[Placeholder — describe responsibilities, contributions, or outcomes.]</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section class="section section--alt" id="cv" aria-labelledby="cv-heading">
+      <div class="container cv-section">
+        <h2 class="section__title" id="cv-heading">Curriculum Vitae</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <p class="cv-section__text">
+          Download my CV for a complete overview of my education, skills, and experience.
+        </p>
+        <!-- Replace href with path to your CV file: images/cv.pdf -->
+        <a class="btn btn--primary" href="#" download aria-label="Download CV as PDF">
+          Download CV (PDF)
+        </a>
+        <p class="cv-section__note">[Placeholder — add your CV file to the <code>images/</code> folder and update the link above.]</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 class="section__title" id="contact-heading">Contact</h2>
+        <div class="section__divider" aria-hidden="true"></div>
+        <div class="contact-grid">
+
+          <div class="contact-info">
+            <p class="contact-info__text">
+              [Placeholder — a short message inviting recruiters or collaborators to reach out.]
+            </p>
+            <ul class="contact-info__list">
+              <li>
+                <span class="contact-info__label">Email:</span>
+                <a href="mailto:[your.email@example.com]">[your.email@example.com]</a>
+              </li>
+              <li>
+                <span class="contact-info__label">Phone:</span>
+                <a href="tel:[+94XXXXXXXXX]">[+94 XX XXX XXXX]</a>
+              </li>
+              <li>
+                <span class="contact-info__label">Location:</span>
+                [City, Sri Lanka]
+              </li>
+              <li>
+                <span class="contact-info__label">LinkedIn:</span>
+                <a href="#" target="_blank" rel="noopener noreferrer">[LinkedIn Profile URL]</a>
+              </li>
+              <li>
+                <span class="contact-info__label">GitHub:</span>
+                <a href="#" target="_blank" rel="noopener noreferrer">[GitHub Profile URL]</a>
+              </li>
+            </ul>
+          </div>
+
+          <form class="contact-form card" id="contact-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Name</label>
+              <input class="form-input" type="text" id="contact-name" name="name" placeholder="Your name" required autocomplete="name">
+              <span class="form-error" id="name-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email</label>
+              <input class="form-input" type="email" id="contact-email" name="email" placeholder="your.email@example.com" required autocomplete="email">
+              <span class="form-error" id="email-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message</label>
+              <textarea class="form-input form-textarea" id="contact-message" name="message" rows="5" placeholder="Your message..." required></textarea>
+              <span class="form-error" id="message-error" role="alert"></span>
+            </div>
+            <button class="btn btn--primary" type="submit">Send Message</button>
+            <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span id="current-year"></span> [Your Full Name]. All rights reserved.</p>
+      <nav aria-label="Footer navigation">
+        <ul class="site-footer__links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
