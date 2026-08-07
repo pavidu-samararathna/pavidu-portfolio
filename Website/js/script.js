@@ -12,12 +12,10 @@
 
   const themeToggle = document.getElementById("theme-toggle");
 
-  function getSystemTheme() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  }
+  const DEFAULT_THEME = "dark";
 
   function getCurrentTheme() {
-    return document.documentElement.getAttribute("data-theme") || "light";
+    return document.documentElement.getAttribute("data-theme") || DEFAULT_THEME;
   }
 
   function updateThemeToggleLabel(theme) {
@@ -37,7 +35,7 @@
 
   function initTheme() {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const theme = savedTheme || getSystemTheme();
+    const theme = savedTheme || DEFAULT_THEME;
     applyTheme(theme);
   }
 
