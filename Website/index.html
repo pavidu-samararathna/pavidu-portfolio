@@ -85,11 +85,12 @@
           <p class="hero__greeting">Hello, I'm</p>
           <h1 class="hero__title" id="hero-heading">Pavidu Ashinta Samararathna</h1>
           <p class="hero__subtitle">BICT Undergraduate &amp; Aspiring Software Engineer</p>
+          <p class="hero__detail">University of Vavuniya · Second-year undergraduate</p>
           <p class="hero__intro">
             I am a second-year Bachelor of Information and Communication Technology (BICT)
-            student at the University of Vavuniya, building my foundation in software development
-            and preparing for a career in software engineering.
-            [Add a brief personal introduction about your interests and motivations.]
+            student at the University of Vavuniya, working toward a career in software engineering.
+            I am focused on building a strong technical foundation through my academic studies
+            and continuous learning.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#projects">View My Projects</a>
@@ -97,9 +98,22 @@
           </div>
         </div>
         <div class="hero__image-wrapper">
-          <!-- Replace with: <img src="images/profile.jpg" alt="Pavidu Ashinta Samararathna" class="hero__image"> -->
-          <div class="hero__image-placeholder" role="img" aria-label="Profile photo placeholder">
-            <span>Profile Photo</span>
+          <div class="hero__image-frame">
+            <div class="hero__image-placeholder" aria-hidden="true">
+              <svg class="hero__placeholder-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Profile Photo</span>
+            </div>
+            <img
+              src="images/profile.jpg"
+              alt="Pavidu Ashinta Samararathna"
+              class="hero__image"
+              width="288"
+              height="288"
+              onerror="this.classList.add('hero__image--hidden')"
+            >
           </div>
         </div>
       </div>
