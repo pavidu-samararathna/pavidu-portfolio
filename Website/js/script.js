@@ -1,7 +1,8 @@
 /**
  * Professional Portfolio — Main Script
  * Handles theme toggling, navigation, smooth scrolling, active link
- * highlighting, mobile menu, form validation, and footer year.
+ * highlighting, mobile menu, typewriter effect, scroll-reveal animations,
+ * and form validation.
  */
 
 (function () {
@@ -9,10 +10,8 @@
 
   /* ---- Theme Configuration ---- */
   const THEME_STORAGE_KEY = "portfolio-theme";
-
-  const themeToggle = document.getElementById("theme-toggle");
-
   const DEFAULT_THEME = "dark";
+  const themeToggle = document.getElementById("theme-toggle");
 
   function getCurrentTheme() {
     return document.documentElement.getAttribute("data-theme") || DEFAULT_THEME;
@@ -20,10 +19,8 @@
 
   function updateThemeToggleLabel(theme) {
     if (!themeToggle) return;
-
     const isDark = theme === "dark";
     const label = isDark ? "Switch to light mode" : "Switch to dark mode";
-
     themeToggle.setAttribute("aria-label", label);
     themeToggle.setAttribute("title", label);
   }
@@ -52,35 +49,123 @@
   }
 
   /* ---- DOM References ---- */
+  const header = document.querySelector(".site-header");
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
   const navLinks = document.querySelectorAll(".navbar__link");
-  const sections = document.querySelectorAll("main .section[id], main .section--hero");
+  const sections = document.querySelectorAll("main section[id]");
   const contactForm = document.getElementById("contact-form");
   const currentYearEl = document.getElementById("current-year");
-  const header = document.querySelector(".site-header");
 
   /* ---- Footer: Dynamic Year ---- */
   if (currentYearEl) {
     currentYearEl.textContent = new Date().getFullYear();
   }
 
-  /* ---- Mobile Navigation Toggle ---- */
+  /* ---- Header Scroll Shadow ---- */
+  function initHeaderScroll() {
+    if (!header) return;
+    function checkScroll() {
+      if (window.scrollY > 20) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    }
+    window.addEventListener("scroll", checkScroll, { passive: true });
+    checkScroll();
+  }
+  initHeaderScroll();
+
+  /* ---- Typewriter Effect for Hero Subtitle ---- */
+  function initTypewriter() {
+    const typewriterEl = document.getElementById("hero-typewriter");
+    if (!typewriterEl) return;
+
+    const wordsData = typewriterEl.getAttribute("data-words");
+    if (!wordsData) return;
+
+    let words = [];
+    try {
+      words = JSON.parse(wordsData);
+    } catch (e) {
+      words = ["BICT Undergraduate", "Software Engineering Student"];
+    }
+
+    /* Check for prefers-reduced-motion */
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      typewriterEl.textContent = words[0];
+      return;
+    }
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 70;
+    const deletingSpeed = 35;
+    const pauseDelay = 1800;
+
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (isDeleting) {
+        typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let timeout = isDeleting ? deletingSpeed : typingSpeed;
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        timeout = pauseDelay;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        timeout = 400;
+      }
+
+      setTimeout(type, timeout);
+    }
+
+    type();
+  }
+  initTypewriter();
+
+  /* ---- Mobile Navigation Drawer ---- */
   if (navToggle && navMenu) {
+    function closeMenu() {
+      navMenu.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    }
+
+    function openMenu() {
+      navMenu.classList.add("open");
+      navToggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("menu-open");
+    }
+
     navToggle.addEventListener("click", function () {
-      const isOpen = navMenu.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
+      const isOpen = navMenu.classList.contains("open");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    /* Close menu when a link is clicked */
+    /* Close menu when clicking a navigation link */
     navLinks.forEach(function (link) {
       link.addEventListener("click", function () {
-        navMenu.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeMenu();
       });
     });
 
-    /* Close menu when clicking outside */
+    /* Close menu on outside click */
     document.addEventListener("click", function (event) {
       if (
         navMenu.classList.contains("open") &&
@@ -88,8 +173,14 @@
         !navToggle.contains(event.target) &&
         !(themeToggle && themeToggle.contains(event.target))
       ) {
-        navMenu.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+        closeMenu();
+      }
+    });
+
+    /* Close menu on Escape key */
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && navMenu.classList.contains("open")) {
+        closeMenu();
       }
     });
   }
@@ -112,7 +203,7 @@
             behavior: "smooth",
           });
 
-          /* Move keyboard focus to target section for accessibility */
+          /* Keyboard accessibility focus */
           target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
         }
@@ -120,28 +211,93 @@
     });
   });
 
-  /* ---- Active Navigation Link on Scroll ---- */
-  function setActiveNavLink() {
-    const scrollPos = window.scrollY + (header ? header.offsetHeight : 0) + 50;
+  /* ---- Active Navigation Link Observer (Scrollspy) ---- */
+  function initScrollspy() {
+    if (!sections.length || !navLinks.length) return;
 
-    let currentSectionId = "home";
+    if ("IntersectionObserver" in window) {
+      const observerOptions = {
+        root: null,
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0,
+      };
 
-    sections.forEach(function (section) {
-      if (section.offsetTop <= scrollPos) {
-        currentSectionId = section.id;
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.id;
+            navLinks.forEach(function (link) {
+              const href = link.getAttribute("href");
+              link.classList.toggle("active", href === "#" + activeId);
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(function (section) {
+        observer.observe(section);
+      });
+    } else {
+      /* Fallback scroll handler */
+      function setActiveNavLinkFallback() {
+        const scrollPos = window.scrollY + (header ? header.offsetHeight : 0) + 60;
+        let currentSectionId = "home";
+
+        sections.forEach(function (section) {
+          if (section.offsetTop <= scrollPos) {
+            currentSectionId = section.id;
+          }
+        });
+
+        navLinks.forEach(function (link) {
+          const href = link.getAttribute("href");
+          link.classList.toggle("active", href === "#" + currentSectionId);
+        });
       }
-    });
 
-    navLinks.forEach(function (link) {
-      const href = link.getAttribute("href");
-      link.classList.toggle("active", href === "#" + currentSectionId);
+      window.addEventListener("scroll", setActiveNavLinkFallback, { passive: true });
+      setActiveNavLinkFallback();
+    }
+  }
+  initScrollspy();
+
+  /* ---- Scroll Reveal Animations (IntersectionObserver) ---- */
+  function initScrollReveal() {
+    const revealElements = document.querySelectorAll(".reveal");
+    if (!revealElements.length) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      revealElements.forEach(function (el) {
+        el.classList.add("revealed");
+      });
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.1,
+      }
+    );
+
+    revealElements.forEach(function (el) {
+      revealObserver.observe(el);
     });
   }
+  initScrollReveal();
 
-  window.addEventListener("scroll", setActiveNavLink, { passive: true });
-  setActiveNavLink();
-
-  /* ---- Contact Form Validation (client-side placeholder) ---- */
+  /* ---- Contact Form Validation ---- */
   if (contactForm) {
     const nameInput = document.getElementById("contact-name");
     const emailInput = document.getElementById("contact-email");
@@ -167,10 +323,8 @@
 
     contactForm.addEventListener("submit", function (event) {
       event.preventDefault();
-
       let isValid = true;
 
-      /* Validate name */
       if (!nameInput.value.trim()) {
         showError(nameInput, nameError, "Please enter your name.");
         isValid = false;
@@ -178,7 +332,6 @@
         clearError(nameInput, nameError);
       }
 
-      /* Validate email */
       if (!emailInput.value.trim()) {
         showError(emailInput, emailError, "Please enter your email address.");
         isValid = false;
@@ -189,7 +342,6 @@
         clearError(emailInput, emailError);
       }
 
-      /* Validate message */
       if (!messageInput.value.trim()) {
         showError(messageInput, messageError, "Please enter a message.");
         isValid = false;
@@ -198,12 +350,7 @@
       }
 
       if (isValid) {
-        /*
-         * Placeholder: connect to a backend or email service later.
-         * For now, show a success message and reset the form.
-         */
-        formStatus.textContent =
-          "Thank you! Your message has been validated. (Backend integration pending.)";
+        formStatus.textContent = "Thank you! Your message has been validated cleanly.";
         formStatus.classList.add("success");
         contactForm.reset();
 
@@ -217,7 +364,6 @@
       }
     });
 
-    /* Clear errors on input */
     [nameInput, emailInput, messageInput].forEach(function (input) {
       input.addEventListener("input", function () {
         const errorEl = document.getElementById(input.id.replace("contact-", "") + "-error");
