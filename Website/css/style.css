@@ -127,6 +127,7 @@ body {
   line-height: var(--line-height);
   color: var(--color-text);
   background-color: var(--color-bg);
+  padding-top: var(--header-height);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition), color var(--transition);
@@ -246,9 +247,12 @@ code {
    Header & Navigation Bar
    ======================================== */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
   background: var(--color-header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -490,7 +494,7 @@ code {
   min-height: calc(100vh - var(--header-height));
   display: flex;
   align-items: center;
-  padding-block: var(--spacing-xl);
+  padding-block: var(--spacing-lg);
   background: var(--gradient-glow);
   position: relative;
   overflow: hidden;
@@ -498,13 +502,13 @@ code {
 
 .hero {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
   align-items: center;
 }
 
 .hero__content {
-  max-width: 38rem;
+  max-width: 40rem;
 }
 
 .hero__status {
@@ -518,7 +522,7 @@ code {
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0.75rem;
   box-shadow: var(--shadow-sm);
 }
 
@@ -541,7 +545,7 @@ code {
   font-size: clamp(2.25rem, 5vw, 3.25rem);
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: 0.35rem;
   letter-spacing: -0.03em;
 }
 
@@ -551,7 +555,7 @@ code {
   min-height: 2rem;
   display: flex;
   align-items: center;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 /* Typewriter Effect */
@@ -580,13 +584,13 @@ code {
 .hero__detail {
   font-size: 0.9375rem;
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0.75rem;
   font-weight: 500;
 }
 
 .hero__intro {
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 1.25rem;
   font-size: 1rem;
   line-height: 1.7;
 }
@@ -606,7 +610,7 @@ code {
 .hero__image-frame {
   position: relative;
   width: 100%;
-  max-width: 18rem;
+  max-width: 370px;
   aspect-ratio: 1;
   border-radius: 50%;
   padding: 6px;
@@ -1278,6 +1282,9 @@ code {
   .about__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .hero__image-frame {
+    max-width: 310px;
+  }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -1358,7 +1365,7 @@ code {
   }
 
   .hero__image-frame {
-    max-width: 13rem;
+    max-width: 250px;
   }
 
   .site-footer__inner {
@@ -1384,5 +1391,15 @@ code {
 
   .btn {
     width: 100%;
+  }
+
+  .hero__image-frame {
+    max-width: 210px;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero__image-frame {
+    max-width: 180px;
   }
 }
